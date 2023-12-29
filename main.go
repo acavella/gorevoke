@@ -39,6 +39,7 @@ func main() {
 	}
 
 	fmt.Println("Downloaded: " + fileUrl)
+	fmt.Println(ca)
 }
 
 // DownloadFile will download from a given url to a file. It will
