@@ -9,12 +9,12 @@ import (
 
 func main() {
 
-	fileUrl := "https://gophercoding.com/img/logo-original.png"
+	fileUrl := "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
 
 	// Download the file, params:
 	// 1) name of file to save as
 	// 2) URL to download FROM
-	err := DownloadFile("saveas.png", fileUrl)
+	err := DownloadFile("saveas.crl", fileUrl)
 	if err != nil {
 		fmt.Println("Error downloading file: ", err)
 		return
