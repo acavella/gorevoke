@@ -1,24 +1,30 @@
 package main
 
 import (
-	"crypto/x509"
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 )
-
-
 
 func main() {
 
-	fileUrl := "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
-	
-	err := DownloadFile("saveas.crl", fileUrl)
+	fileUrl := "https://gophercoding.com/img/logo-original.png"
+
+	// Download the file, params:
+	// 1) name of file to save as
+	// 2) URL to download FROM
+	err := DownloadFile("saveas.png", fileUrl)
 	if err != nil {
 		fmt.Println("Error downloading file: ", err)
 		return
+	}
+
+	fmt.Println("Downloaded: " + fileUrl)
 }
 
+// DownloadFile will download from a given url to a file. It will
+// write as it downloads (useful for large files).
 func DownloadFile(filepath string, url string) error {
 
 	// Get the data
