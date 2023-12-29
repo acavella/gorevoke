@@ -7,19 +7,31 @@ import (
 	"net/http"
 )
 
-const url = "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
+const fileUrl = "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
 
 func main() {
+	err := DownloadFile("saveas.png", fileUrl)
+	if err != nil {
+		fmt.Println("Error downloading file: ", err)
+		return
+}
+func DownloadFile(filepath string, url string) error {
+
+	// Get the data
 	resp, err := http.Get(url)
 	if err != nil {
-		fmt.Println("error fetching:", err.Error())
+		return err
 	}
+	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
+	// Create the file
+	out, err := os.Create(filepath)
 	if err != nil {
-		fmt.Println("error reading:", err.Error())
+		return err
 	}
-	resp.Body.Close()
+	defer out.Close()
 
-	fmt.Println(x509.ParseRevocationList(body))
+	// Write the body to file
+	_, err = io.Copy(out, resp.Body)
+	return err
 }
