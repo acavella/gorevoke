@@ -10,11 +10,12 @@ import (
 func main() {
 
 	fileUrl := "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
+	savloc := "./crl/x21.crl"
 
 	// Download the file, params:
 	// 1) name of file to save as
 	// 2) URL to download FROM
-	err := DownloadFile("saveas.crl", fileUrl)
+	err := DownloadFile(savloc, fileUrl)
 	if err != nil {
 		fmt.Println("Error downloading file: ", err)
 		return
