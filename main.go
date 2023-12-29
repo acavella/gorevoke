@@ -7,14 +7,18 @@ import (
 	"net/http"
 )
 
-const fileUrl = "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
+
 
 func main() {
-	err := DownloadFile("saveas.png", fileUrl)
+
+	fileUrl := "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
+	
+	err := DownloadFile("saveas.crl", fileUrl)
 	if err != nil {
 		fmt.Println("Error downloading file: ", err)
 		return
 }
+
 func DownloadFile(filepath string, url string) error {
 
 	// Get the data
