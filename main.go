@@ -28,12 +28,12 @@ func init() {
 func main() {
 
 	fileUrl := "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
-	filename := "x21.crl"
 
 	ca := viper.GetStringSlice("ca.id")
 	arraylen := len(ca)
 	fmt.Println(ca)
 	fmt.Println(ca[0])
+	filename := ca[0] + ".crl"
 	fmt.Println("Array length: ", arraylen)
 
 	// Download the file, params:
