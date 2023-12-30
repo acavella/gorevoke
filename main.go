@@ -21,15 +21,15 @@ func init() {
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
 
-	ca := viper.Get("ca")
-	fmt.Println(ca)
-
 }
 
 func main() {
 
 	fileUrl := "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
 	savloc := "./crl/x21.crl"
+
+	ca := viper.Get("ca")
+	fmt.Println(ca)
 
 	// Download the file, params:
 	// 1) name of file to save as
