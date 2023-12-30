@@ -1,7 +1,7 @@
 ---
-test: sample
-default:
-  gateway: crls.pki.goog
+server:
+  gateway: crls.pki.goog  # ip or fqdn to check used for connectivity checks
+  interval: 15            # update interval to check for new crls, minutes
 
 ca:
   id: 
