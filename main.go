@@ -31,6 +31,7 @@ func main() {
 	ca := viper.GetStringSlice("ca.id")
 	arraylen := len(ca)
 	fmt.Println(ca)
+	fmt.Println(ca[0])
 	fmt.Println("Array length: ", arraylen)
 
 	// Download the file, params:
