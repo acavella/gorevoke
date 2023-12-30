@@ -31,8 +31,6 @@ func main() {
 	cauri := viper.GetStringSlice("ca.uri")
 
 	for i := 0; i < len(caid); i++ {
-		fmt.Println(caid[i])
-		fmt.Println(cauri[i])
 
 		err := DownloadFile(tmploc+caid[i]+".crl", cauri[i])
 		if err != nil {
@@ -40,6 +38,7 @@ func main() {
 			return
 		}
 		fmt.Println("Downloaded: " + cauri[i])
+		fmt.Println("Saved: " + tmploc + caid[i] + ".crl")
 	}
 
 	fmt.Println("Array length: ", len(caid))
