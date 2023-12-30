@@ -4,10 +4,7 @@ default:
   gateway: crls.pki.goog
 
 ca:
-  id: 
-    - x21
-    - x11
-  uri: 
-    - http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl
-    - http://test.com
-    
+  - id: x21
+    uri: http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl
+  - id: x11
+    uri: http://test.com
