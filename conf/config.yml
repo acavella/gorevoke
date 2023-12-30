@@ -1,4 +1,5 @@
 ---
+test: sample
 default:
   gateway: crls.pki.goog
 
