@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+const tmploc = "./crl/tmp"
+
 func init() {
 
 	viper.SetConfigName("config")        // name of config file (without extension)
@@ -29,10 +31,10 @@ func main() {
 	savloc := "./crl/x21.crl"
 
 	ca := viper.GetStringSlice("ca.id")
-	//arraylen := len(ca)
+	arraylen := len(ca)
 	fmt.Println(ca)
-	//fmt.Println(ca[0])
-	//fmt.Println("Array length: ", arraylen)
+	fmt.Println(ca[0])
+	fmt.Println("Array length: ", arraylen)
 
 	// Download the file, params:
 	// 1) name of file to save as
