@@ -44,15 +44,6 @@ func main() {
 
 	fmt.Println("Array length: ", len(caid))
 
-	// Download the file, params:
-	// 1) name of file to save as
-	// 2) URL to download FROM
-	//err := DownloadFile(tmploc+filename, cauri[i])
-	//if err != nil {
-	//	fmt.Println("Error downloading file: ", err)
-	//	return
-	//}
-
 }
 
 // DownloadFile will download from a given url to a file. It will
@@ -76,4 +67,5 @@ func DownloadFile(filepath string, url string) error {
 	// Write the body to file
 	_, err = io.Copy(out, resp.Body)
 	return err
+
 }
