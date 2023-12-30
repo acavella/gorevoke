@@ -21,7 +21,7 @@ func init() {
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
 
-	ca := viper.Get("test")
+	ca := viper.Get("default.gateway")
 	fmt.Println(ca)
 
 }
