@@ -28,7 +28,7 @@ func main() {
 	fileUrl := "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
 	savloc := "./crl/x21.crl"
 
-	ca := viper.Get("ca.1.id")
+	ca := viper.GetStringSlice("ca.id")
 	//arraylen := len(ca)
 	fmt.Println(ca)
 	//fmt.Println(ca[0])
