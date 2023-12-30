@@ -27,29 +27,32 @@ func init() {
 
 func main() {
 
-	fileUrl := "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
-
 	caid := viper.GetStringSlice("ca.id")
 	cauri := viper.GetStringSlice("ca.uri")
-	arraylen := len(caid)
+
 	for i := 0; i < len(caid); i++ {
 		fmt.Println(caid[i])
 		fmt.Println(cauri[i])
+
+		err := DownloadFile(tmploc+caid[i]+".crl", cauri[i])
+		if err != nil {
+			fmt.Println("Error downloading file: ", err)
+			return
+		}
+		fmt.Println("Downloaded: " + cauri[i])
 	}
 
-	filename := caid[0] + ".crl"
-	fmt.Println("Array length: ", arraylen)
+	fmt.Println("Array length: ", len(caid))
 
 	// Download the file, params:
 	// 1) name of file to save as
 	// 2) URL to download FROM
-	err := DownloadFile(tmploc+filename, fileUrl)
-	if err != nil {
-		fmt.Println("Error downloading file: ", err)
-		return
-	}
+	//err := DownloadFile(tmploc+filename, cauri[i])
+	//if err != nil {
+	//	fmt.Println("Error downloading file: ", err)
+	//	return
+	//}
 
-	fmt.Println("Downloaded: " + fileUrl)
 }
 
 // DownloadFile will download from a given url to a file. It will

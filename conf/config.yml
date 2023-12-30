@@ -9,4 +9,4 @@ ca:
     - x11
   uri: 
     - http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl
-    - http://test.com
+    - http://crl.godaddy.com/gdig2s1-5609.crl
