@@ -43,6 +43,19 @@ func main() {
 
 	fmt.Println("Array length: ", len(caid))
 
+	mux := http.NewServeMux()
+
+	fileServer := http.FileServer(http.Dir("./crl/static/"))
+
+	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
+
+	//mux.HandleFunc("/", home)
+	//mux.HandleFunc("/snippet/view", snippetView)
+	//mux.HandleFunc("/snippet/create", snippetCreate)
+
+	errhttp := http.ListenAndServe(":4000", mux)
+	fmt.Println("Http error: ", errhttp)
+
 }
 
 // DownloadFile will download from a given url to a file. It will
