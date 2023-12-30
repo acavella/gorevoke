@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const tmploc = "./crl/tmp"
+const tmploc = "./crl/tmp/"
 
 func init() {
 
