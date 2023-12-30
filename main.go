@@ -29,7 +29,9 @@ func main() {
 	savloc := "./crl/x21.crl"
 
 	ca := viper.GetStringSlice("ca.id")
+	arraylen := len(ca)
 	fmt.Println(ca)
+	fmt.Println("Array length: ", arraylen)
 
 	// Download the file, params:
 	// 1) name of file to save as
