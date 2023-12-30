@@ -28,11 +28,11 @@ func main() {
 	fileUrl := "http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl"
 	savloc := "./crl/x21.crl"
 
-	ca := viper.GetStringSlice("ca")
-	arraylen := len(ca)
+	ca := viper.Get("ca")
+	//arraylen := len(ca)
 	fmt.Println(ca)
-	fmt.Println(ca[0])
-	fmt.Println("Array length: ", arraylen)
+	//fmt.Println(ca[0])
+	//fmt.Println("Array length: ", arraylen)
 
 	// Download the file, params:
 	// 1) name of file to save as
