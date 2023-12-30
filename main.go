@@ -21,7 +21,7 @@ func init() {
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
 
-	ca := viper.GetString("ca.id")
+	ca := viper.Get("ca.id")
 	fmt.Println(ca)
 
 }
