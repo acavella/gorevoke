@@ -37,20 +37,23 @@ func main() {
 	// Simple loop through arrays, downloads each crl from source
 	for i := 0; i < len(caid); i++ {
 
-		err := DownloadFile(tmploc+caid[i]+".crl", cauri[i])
+		var tmpfile string = tmploc + caid[i] + ".crl"
+		var httpfile string = ".crl/static/" + caid[i] + ".crl"
+
+		err := DownloadFile(tmpfile, cauri[i])
 		if err != nil {
 			fmt.Println("Error downloading file: ", err)
 			return
 		}
 		log.Info("Downloading file: ", cauri[i])
-		log.Info("Download location: ", tmploc+caid[i]+".crl")
+		log.Info("Download location: ", tmpfile)
 
-		h1, err := getHash("./crl/tmp/x21.crl")
+		h1, err := getHash(tmpfile)
 		if err != nil {
 			log.Error("Error hashing: ", err)
 			return
 		}
-		h2, err2 := getHash("./crl/static/x21.crl")
+		h2, err2 := getHash(httpfile)
 		if err2 != nil {
 			log.Error("Error hashing: ", err2)
 			return
@@ -58,7 +61,7 @@ func main() {
 		fmt.Println(h1, h2, h1 == h2)
 		if h1 != h2 {
 			log.Info("File hashes do not match: ", h1, h2)
-			copy("./crl/tmp/x21.crl", "./crl/static/x21.crl")
+			copy(tmpfile, httpfile)
 		} else {
 			log.Info("File hashes match: ", h1, h2)
 		}
