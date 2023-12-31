@@ -44,6 +44,19 @@ func main() {
 		}
 		log.Info("Downloading file: ", cauri[i])
 		log.Info("Download location: ", tmploc+caid[i]+".crl")
+
+		h1, err := getHash("./crl/tmp/x21.crl")
+		if err != nil {
+			return
+		}
+		h2, err2 := getHash("./crl/static/x21.crl")
+		if err2 != nil {
+			return
+		}
+		fmt.Println(h1, h2, h1 == h2)
+		if h1 != h2 {
+			log.Info("File hashes do not match: %n /= %n2", h1, h2)
+		}
 	}
 
 	fmt.Println("Array length: ", len(caid))
@@ -59,15 +72,6 @@ func main() {
 	*/
 
 	// Simple hash comparison
-	h1, err := getHash("./crl/tmp/x21.crl")
-	if err != nil {
-		return
-	}
-	h2, err2 := getHash("./crl/static/x21.crl")
-	if err2 != nil {
-		return
-	}
-	fmt.Println(h1, h2, h1 == h2)
 
 }
 
