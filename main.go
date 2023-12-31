@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"hash/crc32"
 	"io"
 	"net/http"
 	"os"
@@ -49,11 +50,24 @@ func main() {
 
 	// Simple http fileserver, serves all files in ./crl/static/
 	// via localhost:4000/static/filename
+	/* Disabled for testing
 	mux := http.NewServeMux()
 	fileServer := http.FileServer(http.Dir("./crl/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 	errhttp := http.ListenAndServe(":4000", mux)
 	fmt.Println("Http error: ", errhttp)
+	*/
+
+	// Simple hash comparison
+	h1, err := getHash("main.go")
+	if err != nil {
+		return
+	}
+	h2, err2 := getHash("main.go")
+	if err2 != nil {
+		return
+	}
+	fmt.Println(h1, h2, h1 == h2)
 
 }
 
@@ -79,4 +93,27 @@ func DownloadFile(filepath string, url string) error {
 	_, err = io.Copy(out, resp.Body)
 	return err
 
+}
+
+func getHash(filename string) (uint32, error) {
+	// open the file
+	f, err := os.Open(filename)
+	if err != nil {
+		return 0, err
+	}
+	// remember to always close opened files
+	defer f.Close()
+
+	// create a hasher
+
+	h := crc32.NewIEEE()
+	// copy the file into the hasher
+	// - copy takes (dst, src) and returns (bytesWritten, error)
+	_, err = io.Copy(h, f)
+	// we don't care about how many bytes were written, but we do want to
+	// handle the error
+	if err != nil {
+		return 0, err
+	}
+	return h.Sum32(), nil
 }
