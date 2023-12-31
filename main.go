@@ -63,7 +63,7 @@ func main() {
 	if err != nil {
 		return
 	}
-	h2, err2 := getHash("./crl/tmp/x11.crl")
+	h2, err2 := getHash("./crl/static/x21.crl")
 	if err2 != nil {
 		return
 	}
