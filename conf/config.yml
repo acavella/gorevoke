@@ -1,9 +1,9 @@
 ---
 default:
-  gateway: crls.pki.goog  # ip or fqdn to check used for connectivity checks
-  interval: 15            # update interval to check for new crls, minutes
-  httploc: ./crl/static   # location of crls file to be served
-  webserver: true         # when true utilzes internal http server
+  gateway: crls.pki.goog    # ip or fqdn to check used for connectivity checks
+  interval: 15              # update interval to check for new crls, in minutes
+  webserver: true           # when true utilzes internal http server
+  httploc: /var/www/revoke  # location of crl files, used when webserver false
 
 ca:
   id: 
