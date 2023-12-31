@@ -55,7 +55,7 @@ func main() {
 		}
 		fmt.Println(h1, h2, h1 == h2)
 		if h1 != h2 {
-			log.Info("File hashes do not match: %n /= %n2", h1, h2)
+			log.Info("File hashes do not match: ", h1, h2)
 		}
 	}
 
