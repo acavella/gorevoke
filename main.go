@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"hash/crc32"
 	"io"
@@ -48,23 +49,33 @@ func main() {
 		log.Info("Downloading file: ", cauri[i])
 		log.Info("Download location: ", tmpfile)
 
-		h1, err := getHash(tmpfile)
-		if err != nil {
-			log.Error("Error hashing: ", err)
-			return
-		}
-		h2, err2 := getHash(httpfile)
-		if err2 != nil {
-			log.Error("Error hashing: ", err2)
-			return
-		}
-		fmt.Println(h1, h2, h1 == h2)
-		if h1 != h2 {
-			log.Info("File hashes do not match: ", h1, h2)
+		if _, err := os.Stat(httpfile); err == nil {
+			// file exists
+			h1, err := getHash(tmpfile)
+			if err != nil {
+				log.Error("Error hashing: ", err)
+				return
+			}
+			h2, err2 := getHash(httpfile)
+			if err2 != nil {
+				log.Error("Error hashing: ", err2)
+				return
+			}
+			fmt.Println(h1, h2, h1 == h2)
+			if h1 != h2 {
+				log.Info("File hashes do not match: ", h1, h2)
+				log.Info("Copying file to destination: ", httpfile)
+				copy(tmpfile, httpfile)
+			}
+		} else if errors.Is(err, os.ErrNotExist) {
+			// file does not exist
+			log.Info("Copying file to destination: ", httpfile)
 			copy(tmpfile, httpfile)
 		} else {
-			log.Info("File hashes match: ", h1, h2)
+			// catch anything else
+			return
 		}
+
 	}
 
 	fmt.Println("Array length: ", len(caid))
