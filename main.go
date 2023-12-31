@@ -66,6 +66,8 @@ func main() {
 				log.Info("File hashes do not match: ", h1, h2)
 				log.Info("Copying file to destination: ", httpfile)
 				copy(tmpfile, httpfile)
+			} else {
+				log.Info("No changes detected.")
 			}
 		} else if errors.Is(err, os.ErrNotExist) {
 			// file does not exist
