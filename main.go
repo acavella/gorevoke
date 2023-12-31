@@ -67,7 +67,7 @@ func main() {
 				log.Info("Copying file to destination: ", httpfile)
 				copy(tmpfile, httpfile)
 			} else {
-				log.Info("No changes detected.")
+				log.Info("No changes detected, proceeding.")
 			}
 		} else if errors.Is(err, os.ErrNotExist) {
 			// file does not exist
