@@ -38,7 +38,7 @@ func main() {
 	for i := 0; i < len(caid); i++ {
 
 		var tmpfile string = tmploc + caid[i] + ".crl"
-		var httpfile string = ".crl/static/" + caid[i] + ".crl"
+		var httpfile string = "./crl/static/" + caid[i] + ".crl"
 
 		err := DownloadFile(tmpfile, cauri[i])
 		if err != nil {
