@@ -7,6 +7,8 @@ import (
 	"os"
 
 	"github.com/spf13/viper"
+
+	log "github.com/sirupsen/logrus"
 )
 
 const tmploc = "./crl/tmp/"
@@ -39,8 +41,8 @@ func main() {
 			fmt.Println("Error downloading file: ", err)
 			return
 		}
-		fmt.Println("Downloaded: " + cauri[i])
-		fmt.Println("Saved: " + tmploc + caid[i] + ".crl")
+		log.Info("Downloading file: ", cauri[i])
+		log.Info("Download location: ", tmploc+caid[i]+".crl")
 	}
 
 	fmt.Println("Array length: ", len(caid))
