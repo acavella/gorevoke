@@ -59,11 +59,11 @@ func main() {
 	*/
 
 	// Simple hash comparison
-	h1, err := getHash("main.go")
+	h1, err := getHash("./crl/tmp/x21.crl")
 	if err != nil {
 		return
 	}
-	h2, err2 := getHash("main.go")
+	h2, err2 := getHash("./crl/tmp/x11.crl")
 	if err2 != nil {
 		return
 	}
