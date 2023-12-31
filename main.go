@@ -51,6 +51,7 @@ func main() {
 		}
 		h2, err2 := getHash("./crl/static/x22.crl")
 		if err2 != nil {
+			log.Error("Unable to hash file: ", err2)
 			return
 		}
 		fmt.Println(h1, h2, h1 == h2)
