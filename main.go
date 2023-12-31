@@ -82,9 +82,9 @@ func main() {
 
 	fmt.Println("Array length: ", len(caid))
 
+	/* Disabled for testing
 	// Simple http fileserver, serves all files in ./crl/static/
 	// via localhost:4000/static/filename
-	/* Disabled for testing
 	mux := http.NewServeMux()
 	fileServer := http.FileServer(http.Dir("./crl/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
