@@ -50,7 +50,7 @@ func main() {
 			log.Error("Error hashing: ", err)
 			return
 		}
-		h2, err2 := getHash("./crl/static/x22.crl")
+		h2, err2 := getHash("./crl/static/x21.crl")
 		if err2 != nil {
 			log.Error("Error hashing: ", err2)
 			return
@@ -58,6 +58,9 @@ func main() {
 		fmt.Println(h1, h2, h1 == h2)
 		if h1 != h2 {
 			log.Info("File hashes do not match: ", h1, h2)
+			copy("./crl/tmp/x21.crl", "./crl/static/x21.crl")
+		} else {
+			log.Info("File hashes match: ", h1, h2)
 		}
 	}
 
@@ -122,4 +125,29 @@ func getHash(filename string) (uint32, error) {
 		return 0, err
 	}
 	return h.Sum32(), nil
+}
+
+func copy(src, dst string) (int64, error) {
+	sourceFileStat, err := os.Stat(src)
+	if err != nil {
+		return 0, err
+	}
+
+	if !sourceFileStat.Mode().IsRegular() {
+		return 0, fmt.Errorf("%s is not a regular file", src)
+	}
+
+	source, err := os.Open(src)
+	if err != nil {
+		return 0, err
+	}
+	defer source.Close()
+
+	destination, err := os.Create(dst)
+	if err != nil {
+		return 0, err
+	}
+	defer destination.Close()
+	nBytes, err := io.Copy(destination, source)
+	return nBytes, err
 }
