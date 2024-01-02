@@ -28,6 +28,8 @@ func init() {
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
 
+	printver()
+
 }
 
 func main() {
@@ -36,8 +38,9 @@ func main() {
 	caid := viper.GetStringSlice("ca.id")
 	cauri := viper.GetStringSlice("ca.uri")
 	refresh := viper.GetInt("default.interval")
+	webport := viper.GetString(".default.port")
 
-	go webserver()
+	go webserver(webport)
 
 	log.Info("CRLs in list: ", len(caid))
 	log.Info("Refresh interval: ", time.Duration(int(time.Second)*int(refresh)))
@@ -169,14 +172,14 @@ func getcrl(caid []string, cauri []string, refresh int) {
 	}
 }
 
-func webserver() {
+func webserver(webport string) {
 	// Disabled for testing
 	// Simple http fileserver, serves all files in ./crl/static/
 	// via localhost:4000/static/filename
-	log.Info("Starting webserver")
+	log.Infoln("Starting webserver on port: ", webport)
 	mux := http.NewServeMux()
 	fileServer := http.FileServer(http.Dir("./crl/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
-	errhttp := http.ListenAndServe(":4000", mux)
+	errhttp := http.ListenAndServe(":"+webport, mux)
 	log.Error("Http error: ", errhttp)
 }
