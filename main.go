@@ -37,10 +37,10 @@ func main() {
 	cauri := viper.GetStringSlice("ca.uri")
 	refresh := viper.GetInt("default.interval")
 
+	go webserver()
+
 	log.Info("CRLs in list: ", len(caid))
 	log.Info("Refresh interval: ", time.Duration(int(time.Second)*int(refresh)))
-
-	go webserver()
 
 	getcrl(caid, cauri, refresh)
 
@@ -165,7 +165,7 @@ func getcrl(caid []string, cauri []string, refresh int) {
 			}
 
 		}
-		time.Sleep(time.Duration(int(time.Second)*refresh) * time.Second) // Defines time to sleep before repeating
+		time.Sleep(time.Duration(int(time.Second) * refresh)) // Defines time to sleep before repeating
 	}
 }
 
