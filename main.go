@@ -30,7 +30,10 @@ func init() {
 	if err != nil {             // Handle errors reading the config file
 		panic(fmt.Errorf("fatal error config file: %w", err))
 	}
-
+	log.SetFormatter(&log.TextFormatter{
+		QuoteEmptyFields: true,
+		FullTimestamp:    true,
+	})
 	printver()
 
 }
@@ -179,7 +182,7 @@ func webserver(webport string) {
 	// Disabled for testing
 	// Simple http fileserver, serves all files in ./crl/static/
 	// via localhost:4000/static/filename
-	log.Infoln("Starting webserver on port: ", webport)
+	log.Info("Webserver is started on port")
 	mux := http.NewServeMux()
 	fileServer := http.FileServer(http.Dir("./crl/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
