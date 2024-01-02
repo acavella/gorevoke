@@ -16,6 +16,9 @@ import (
 
 const tmploc = "./crl/tmp/"
 
+var appVersion = "v0.0.0"
+var appBuild = "0000000"
+
 func init() {
 
 	viper.SetConfigName("config")        // name of config file (without extension)
@@ -182,4 +185,9 @@ func webserver(webport string) {
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 	errhttp := http.ListenAndServe(":"+webport, mux)
 	log.Error("Http error: ", errhttp)
+}
+
+func printver() {
+	fmt.Printf("GoRevoke %s\n", appVersion)
+	fmt.Printf("Build Number: %s\n", appBuild)
 }
