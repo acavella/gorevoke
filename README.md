@@ -1,45 +1,39 @@
 # Go Revoke
-A fully featured CDP and OCSP responder written in Go.
-<!-- PROJECT LOGO -->
-<p align="center">
-  <a href="https://github.com/altCipher/revoke">
-    <img src="images/logo.png" alt="Logo">
-  </a>
-</p>
 
 <!-- PROJECT SHIELDS -->
 <p align="center">
-  <a href="https://github.com/altCipher/revoke/"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
-  <img src="https://img.shields.io/github/contributors/altCipher/revoke.svg" alt="Contributors">
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/altCipher/revoke.svg" alt="License"></a>
-  <a href="https://github.com/revokehq/revoke/releases"><img src="https://img.shields.io/github/release/altCipher/revoke.svg" alt="Latest Stable Version"></a>
+  <a href="https://github.com/acavella/gorevoke/"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
+  <img src="https://img.shields.io/github/contributors/acavella/gorevoke.svg" alt="Contributors">
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/acavella/gorevoke.svg" alt="License"></a>
+  <a href="https://github.com/revokehq/revoke/releases"><img src="https://img.shields.io/github/release/acavella/gorevoke.svg" alt="Latest Stable Version"></a>
   <a href="https://bestpractices.coreinfrastructure.org/projects/2731"><img src="https://bestpractices.coreinfrastructure.org/projects/2731/badge"></a>
 </p>
 
 ## Overview
 
-Automates the download and hosting of CRL data from a remote Certificate Authority.  Revoke is designed to be executed via chron.  
+Automates the download and hosting of CRL data from remote Certificate Authorities. This is a rewrite of the original shell based CDP, [revoke](https://github.com/acavella/revoke).
 
+- Written in Golang for crossplatform compatibility
 - Retrieve remote CRL data via HTTP or HTTPS
 - Validates remote CRL data
-- Serves CRLs via local HTTPD
-- Written using BASH to maximize native compatibility and remain lighweight
-- Retrieve an unlimited number of CRLs
+- Serves CRLs via local webserver
+- Retrieves an unlimited number of CRLs
 - Support for full and delta CRLs
 
+## Planned Features
+
+- OCSP implementation
+
 ## Requirements
-- Bash
-- Apache HTTP Server 2.4 
-- OpenSSL 1.0.2 or later
-- Curl 7.29 or later
+- N/A
 
 ## Installation
 
-Installation instructions here.
-
+```Installation instructions here.
+```
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within revoke, please send an e-mail to [tony@cavella.com](mailto:tony@cavella.com?Revoke%20Security%20Vulnerability). Security vulnerabilities are taken very seriously and will be addressed with the utmost priority.
+I welcome welcome all responsible disclosures. Please do not open an ISSUE to report a security problem. Please use the private reporting system to report security related issues responsibly: https://github.com/acavella/gorevoke/security/advisories/new
 
 ## Contributing
 
