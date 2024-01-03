@@ -1,13 +1,9 @@
 # Go Revoke
 
 <!-- PROJECT SHIELDS -->
-<p align="center">
-  <a href="https://github.com/acavella/gorevoke/"><img src="https://img.shields.io/badge/build-passing-brightgreen.svg" alt="Build Status"></a>
-  <img src="https://img.shields.io/github/contributors/acavella/gorevoke.svg" alt="Contributors">
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/acavella/gorevoke.svg" alt="License"></a>
-  <a href="https://github.com/revokehq/revoke/releases"><img src="https://img.shields.io/github/release/acavella/gorevoke.svg" alt="Latest Stable Version"></a>
-  <a href="https://bestpractices.coreinfrastructure.org/projects/2731"><img src="https://bestpractices.coreinfrastructure.org/projects/2731/badge"></a>
-</p>
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/acavella/gorevoke/gorelease.yml)
+![GitHub License](https://img.shields.io/github/license/acavella/gorevoke)
+![GitHub release (with filter)](https://img.shields.io/github/v/release/acavella/gorevoke)
 
 ## Overview
 
