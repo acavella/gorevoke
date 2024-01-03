@@ -44,7 +44,7 @@ func main() {
 	caid := viper.GetStringSlice("ca.id")
 	cauri := viper.GetStringSlice("ca.uri")
 	refresh := viper.GetInt("default.interval")
-	webport := viper.GetString(".default.port")
+	webport := viper.GetString("default.port")
 
 	go webserver(webport)
 
@@ -182,7 +182,7 @@ func webserver(webport string) {
 	// Disabled for testing
 	// Simple http fileserver, serves all files in ./crl/static/
 	// via localhost:4000/static/filename
-	log.Info("Webserver is started on port")
+	log.Info("Webserver is started on port ", webport)
 	mux := http.NewServeMux()
 	fileServer := http.FileServer(http.Dir("./crl/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
