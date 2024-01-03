@@ -182,7 +182,7 @@ func webserver(webport string) {
 	// Disabled for testing
 	// Simple http fileserver, serves all files in ./crl/static/
 	// via localhost:4000/static/filename
-	log.Info("Webserver is started on port ", webport)
+	log.Info("Webserver is starting on port ", webport)
 	mux := http.NewServeMux()
 	fileServer := http.FileServer(http.Dir("./crl/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
