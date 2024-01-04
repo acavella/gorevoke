@@ -16,8 +16,9 @@ import (
 
 const tmploc = "./crl/tmp/"
 
-var appVersion = "v0.0.0"
-var appBuild = "0000000"
+var appVersion = "0.0.0"
+var appBuild = "UNK"
+var appBuildDate = "00000000-0000"
 
 func init() {
 
@@ -191,6 +192,7 @@ func webserver(webport string) {
 }
 
 func printver() {
-	fmt.Printf("GoRevoke %s\n", appVersion)
-	fmt.Printf("Build Number: %s\n", appBuild)
+	fmt.Printf("GoRevoke ver. %s\n", appVersion)
+	fmt.Printf("Build Type: %s\n", appBuild)
+	fmt.Printf("Build Date: %s\n", appBuildDate)
 }
