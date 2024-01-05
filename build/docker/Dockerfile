@@ -11,7 +11,7 @@ RUN apk add --no-cache -U git \
 FROM registry.access.redhat.com/ubi9/ubi:9.3-1476 as runner
 LABEL maintainer="Tony Cavella <tony@cavella.com>"
 
-COPY --from=builder /usr/local/bin/gorevoke/ /usr/local/bin/
+COPY --from=builder /usr/local/bin/gorevoke /usr/local/bin/
 
 RUN dnf update -y
 
