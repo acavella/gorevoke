@@ -1,10 +1,15 @@
 #!/usr/bin/evn sh
 
+# NAME: install.sh
+# DECRIPTION: Dockerfile install helper script
+# AUTHOR: Tony Cavella (tony@cavella.com)
+# SOURCE: https://github.com/acavella/gorevoke
+
 set -e
 
 # Set build variables
 APP_NAME="gorevoke"
-APP_VERSION=${GOREVOKE_TAG}
+APP_VERSION=${GOREVOKE_TAG#v}
 APP_BUILD="Docker"
 APP_BUILDTIME=$(date +%Y%m%d-%M%H)
 BUILD_DIR="/usr/local/bin/gorevoke"
