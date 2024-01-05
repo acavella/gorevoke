@@ -1,6 +1,6 @@
 FROM docker.io/library/golang:1.20.12-alpine3.19 as builder
 
-ENV GOREVOKE_TAG=v1.0.0-rc.3
+ENV GOREVOKE_TAG=v1.0.0-rc.4
 WORKDIR /go/src/
 
 RUN apk add --no-cache -U git \
