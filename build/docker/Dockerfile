@@ -14,7 +14,7 @@ WORKDIR /usr/local/bin/gorevoke/
 
 COPY --from=builder /usr/local/bin/gorevoke/ /usr/local/bin/
 
-RUN dnf update -y \
+RUN dnf update -y
 
 EXPOSE 4000
 CMD [ "/usr/local/bin/gorevoke/gorevoke" ]
