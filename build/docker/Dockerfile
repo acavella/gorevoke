@@ -1,6 +1,6 @@
 FROM docker.io/library/golang:1.20.12-alpine3.19 as builder
 
-ENV GOREVOKE_TAG=v1.0.0-rc.4
+ENV GOREVOKE_TAG=v1.0.0-rc.5
 WORKDIR /go/src/
 
 RUN apk add --no-cache -U git \
@@ -11,7 +11,7 @@ RUN apk add --no-cache -U git \
 FROM registry.access.redhat.com/ubi9/ubi:9.3-1476 as runner
 LABEL maintainer="Tony Cavella <tony@cavella.com>"
 
-COPY --from=builder /usr/local/bin/gorevoke /usr/local/bin/
+COPY --from=builder /usr/local/bin/gorevoke/ /usr/local/bin/gorevoke/
 
 RUN dnf update -y
 
