@@ -27,6 +27,10 @@ Automates the download and hosting of CRL data from remote Certificate Authoriti
 
 ```Installation instructions here.
 ```
+
+## Container Performance
+![Docker Container Performance](assets/docker-stats.png)
+
 ## Security Vulnerabilities
 
 I welcome welcome all responsible disclosures. Please do not open an ISSUE to report a security problem. Please use the private reporting system to report security related issues responsibly: https://github.com/acavella/gorevoke/security/advisories/new
