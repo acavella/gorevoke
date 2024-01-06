@@ -1,0 +1,8 @@
+[Unit]
+Description=GoRevoke systemd service unit file.
+
+[Service]
+ExecStart=/usr/local/bin/gorevoke/gorevoke
+
+[Install]
+WantedBy=multi-user.target
