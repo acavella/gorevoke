@@ -25,7 +25,40 @@ Automates the download and hosting of CRL data from remote Certificate Authoriti
 
 ## Installation
 
-```Installation instructions here.
+GoRevoke is designed to be deployed and run as a container. Additional instructions are provided if you'd like to deploy from source on baremetal.
+
+### Docker Instructions
+
+1. Create a application configuration directory and file; this example maps a volume to the `/appdata` directory.
+```Yaml=
+---
+default:
+  gateway: crls.pki.goog    # ip or fqdn to check used for connectivity checks
+  interval: 900             # update interval to check for new crls, in seconds
+  port: 4000                # port used by http server
+
+ca:
+  id: 
+    - x21
+    - x11
+  uri: 
+    - http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl
+    - http://crl.godaddy.com/gdig2s1-5609.crl
+```
+
+```Shell
+docker run -d \
+--name gorevoke \
+-p 80:4000 \
+-v /appdata/gorevoke/config:/usr/local/bin/gorevoke/conf \
+--restart=unless-stopped \
+s0lution/gorevoke:1.0.0-rc.8
+```
+
+### Baremetal Instructions
+
+```Text
+Installation instructions here.
 ```
 
 ## Container Performance
