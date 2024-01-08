@@ -46,8 +46,11 @@ func main() {
 	cauri := viper.GetStringSlice("ca.uri")
 	refresh := viper.GetInt("default.interval")
 	webport := viper.GetString("default.port")
+	server := viper.GetBool("default.webserver")
 
-	go webserver(webport)
+	if server {
+		go webserver(webport)
+	}
 
 	log.Info("CRLs in list: ", len(caid))
 	log.Info("Refresh interval: ", time.Duration(int(time.Second)*int(refresh)))
