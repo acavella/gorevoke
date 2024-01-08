@@ -31,7 +31,8 @@ func init() {
 	if err != nil {
 		log.Fatal(err) //print the error if obtained
 	}
-	workpath = directory
+
+	workpath = directory // set app working directory
 
 	viper.SetConfigName("config")            // name of config file (without extension)
 	viper.SetConfigType("yaml")              // REQUIRED if the config file does not have the extension in the name
