@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/spf13/viper"
@@ -14,27 +15,33 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const tmploc = "./crl/tmp/"
+var workpath = "/usr/local/bin/gorevoke"
 
 var appVersion = "0.0.0"
 var appBuild = "UNK"
 var appBuildDate = "00000000-0000"
 
 func init() {
-
-	viper.SetConfigName("config")        // name of config file (without extension)
-	viper.SetConfigType("yaml")          // REQUIRED if the config file does not have the extension in the name
-	viper.AddConfigPath("/etc/appname/") // path to look for the config file in
-	viper.AddConfigPath("./conf/")       // optionally look for config in the working directory
-
-	err := viper.ReadInConfig() // Find and read the config file
-	if err != nil {             // Handle errors reading the config file
-		panic(fmt.Errorf("fatal error config file: %w", err))
-	}
 	log.SetFormatter(&log.TextFormatter{
 		QuoteEmptyFields: true,
 		FullTimestamp:    true,
 	})
+
+	directory, err := filepath.Abs(filepath.Dir(os.Args[0])) //get the current working directory
+	if err != nil {
+		log.Fatal(err) //print the error if obtained
+	}
+	workpath = directory
+
+	viper.SetConfigName("config")            // name of config file (without extension)
+	viper.SetConfigType("yaml")              // REQUIRED if the config file does not have the extension in the name
+	viper.AddConfigPath(workpath + "/conf/") // optionally look for config in the working directory
+
+	err2 := viper.ReadInConfig() // Find and read the config file
+	if err2 != nil {             // Handle errors reading the config file
+		panic(fmt.Errorf("fatal error config file: %w", err))
+	}
+
 	printver()
 
 }
@@ -137,8 +144,8 @@ func getcrl(caid []string, cauri []string, refresh int) {
 		// Simple loop through arrays, downloads each crl from source
 		for i := 0; i < len(caid); i++ {
 
-			var tmpfile string = tmploc + caid[i] + ".crl"
-			var httpfile string = "./crl/static/" + caid[i] + ".crl"
+			var tmpfile string = workpath + "/crl/tmp/" + caid[i] + ".crl"
+			var httpfile string = workpath + "/crl/static/" + caid[i] + ".crl"
 
 			err := DownloadFile(tmpfile, cauri[i])
 			if err != nil {
@@ -188,7 +195,7 @@ func webserver(webport string) {
 	// via localhost:4000/static/filename
 	log.Info("Webserver is starting on port ", webport)
 	mux := http.NewServeMux()
-	fileServer := http.FileServer(http.Dir("./crl/static/"))
+	fileServer := http.FileServer(http.Dir(workpath + "/crl/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 	errhttp := http.ListenAndServe(":"+webport, mux)
 	log.Error("Http error: ", errhttp)
