@@ -45,7 +45,7 @@ ca:
     - http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl
     - http://crl.godaddy.com/gdig2s1-5609.crl
 ```
-
+2. Use the following command to pull the latest image.
 ```Shell
 docker run -d \
 --name gorevoke \
