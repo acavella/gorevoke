@@ -30,7 +30,7 @@ GoRevoke is designed to be deployed and run as a container. Additional instructi
 ### Docker Instructions
 
 1. Create a application configuration directory and file; this example maps a volume to the `/appdata` directory.
-```Yaml=
+```Yaml
 ---
 default:
   gateway: crls.pki.goog    # ip or fqdn to check used for connectivity checks
@@ -52,7 +52,7 @@ docker run -d \
 -p 80:4000 \
 -v /appdata/gorevoke/config:/usr/local/bin/gorevoke/conf \
 --restart=unless-stopped \
-s0lution/gorevoke:1.0.0-rc.8
+s0lution/gorevoke:latest
 ```
 
 ### Baremetal Instructions
