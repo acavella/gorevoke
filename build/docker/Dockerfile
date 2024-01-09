@@ -17,7 +17,7 @@ LABEL app.version=${GOREVOKE_TAG}
 
 COPY --from=builder /usr/local/bin/gorevoke/ /usr/local/bin/gorevoke/
 
-RUN dnf update -y 
+RUN dnf update -y
 
 EXPOSE 4000
 CMD [ "/usr/local/bin/gorevoke/gorevoke" ]
