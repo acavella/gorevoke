@@ -1,4 +1,4 @@
-#!/usr/bin/evn sh
+#!/usr/bin/env sh
 
 # NAME: install.sh
 # DECRIPTION: Dockerfile install helper script
