@@ -15,8 +15,7 @@ LABEL app.version=${GOREVOKE_TAG}
 COPY --from=builder /usr/local/bin/gorevoke/ /usr/local/bin/gorevoke/
 COPY ./gorevoke.service /etc/systemd/system/
 
-RUN dnf update -y \
-&& systemctl enable gorevoke.service
+RUN dnf update -y 
 
 EXPOSE 4000
-CMD [ "/sbin/init" ]
+CMD [ "/usr/local/bin/gorevoke/gorevoke" ]
