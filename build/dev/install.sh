@@ -1,7 +1,7 @@
 #!/usr/bin/evn sh
 
 # NAME: install.sh
-# DECRIPTION: Dockerfile install helper script
+# DECRIPTION: Install helper script
 # AUTHOR: Tony Cavella (tony@cavella.com)
 # SOURCE: https://github.com/acavella/gorevoke
 
