@@ -1,6 +1,7 @@
-FROM docker.io/library/golang:1.20.12-alpine3.19 as builder
+ARG BUILD_TAG=v1.0.0-rc10
 
-ENV GOREVOKE_TAG=v1.0.0-rc10
+FROM docker.io/library/golang:1.20.12-alpine3.19 as builder
+ENV GOREVOKE_TAG=${BUILD_TAG}
 WORKDIR /go/src/
 
 RUN apk add --no-cache -U git \
@@ -9,6 +10,8 @@ RUN apk add --no-cache -U git \
     && /bin/sh /go/src/gorevoke/build/docker/bin/install.sh
 
 FROM registry.access.redhat.com/ubi9/ubi:9.3-1476 as runner
+ENV GOREVOKE_TAG=${BUILD_TAG}
+
 LABEL maintainer="Tony Cavella <tony@cavella.com>"
 LABEL app.version=${GOREVOKE_TAG}
 
