@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/x509"
 	"errors"
 	"fmt"
 	"hash/crc32"
@@ -139,6 +140,19 @@ func copy(src, dst string) (int64, error) {
 	return nBytes, err
 }
 
+func checkcrl(filename string) {
+	csr, err := os.ReadFile(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	cert, err := x509.ParseRevocationList(csr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Info("CRL validated: ", cert.Issuer.CommonName)
+}
+
 func getcrl(caid []string, cauri []string, refresh int) {
 	for {
 		log.Info("Checking for new CRL(s)")
@@ -155,6 +169,8 @@ func getcrl(caid []string, cauri []string, refresh int) {
 			}
 			log.Info("Downloading file: ", cauri[i])
 			log.Info("Download location: ", tmpfile)
+
+			checkcrl(tmpfile)
 
 			if _, err := os.Stat(httpfile); err == nil {
 				// file exists
