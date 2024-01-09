@@ -16,7 +16,6 @@ LABEL maintainer="Tony Cavella <tony@cavella.com>"
 LABEL app.version=${GOREVOKE_TAG}
 
 COPY --from=builder /usr/local/bin/gorevoke/ /usr/local/bin/gorevoke/
-COPY ./gorevoke.service /etc/systemd/system/
 
 RUN dnf update -y 
 
