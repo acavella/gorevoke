@@ -1,22 +1,24 @@
-# Go Revoke
+# GoRevoke
 
 <!-- PROJECT SHIELDS -->
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/acavella/gorevoke/gorelease.yml)
 ![GitHub License](https://img.shields.io/github/license/acavella/gorevoke)
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/acavella/gorevoke)
 
-## Overview
+## Description
 
 Automates the download and hosting of CRL data from remote Certificate Authorities. This is a rewrite of the original shell based CDP, [revoke](https://github.com/acavella/revoke).
 
-- Written in Golang for crossplatform compatibility
+### Key Features
+
+- :penguin: :window: Written in Golang for crossplatform compatibility
 - Retrieve remote CRL data via HTTP or HTTPS
 - Validates remote CRL data
 - Serves CRLs via local webserver
 - Retrieves an unlimited number of CRLs
 - Support for full and delta CRLs
 
-## Planned Features
+### Planned Features
 
 - OCSP implementation
 
@@ -29,7 +31,8 @@ GoRevoke is designed to be deployed and run as a container. Additional instructi
 
 ### Docker Instructions
 
-1. Create a application configuration directory and file; this example maps a volume to the `/appdata` directory.
+1. 
+2. Create a application configuration directory and file; this example maps a volume to the `/appdata` directory.
 ```Yaml
 ---
 default:
