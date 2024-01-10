@@ -5,25 +5,23 @@
 ![GitHub License](https://img.shields.io/github/license/acavella/gorevoke)
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/acavella/gorevoke)
 
-## Description
+## Overview
 
-Automates the download and hosting of CRL data from remote Certificate Authorities. This is a rewrite of the original shell based CDP, [revoke](https://github.com/acavella/revoke).
+GoRevoke is a standalone [Certificate Revocation List](https://en.wikipedia.org/wiki/Certificate_revocation_list) Distrution Point written in [Go](https://go.dev/), designed to be lightweight and fully self-contained. Using a simple configuration, GoRevoke automates downloading and serving of remote CRLs. GoRevoke is based on, [revoke](https://github.com/acavella/revoke), a shell based script providing similar function.
 
 ### Key Features
 
-- :penguin: :window: Written in Golang for crossplatform compatibility
+- Cross-platform compatiblity; tested on Linux and Windows
+- Native and containerized deployment options
 - Retrieve remote CRL data via HTTP or HTTPS
-- Validates remote CRL data
-- Serves CRLs via local webserver
-- Retrieves an unlimited number of CRLs
+- Validation and confirmation of CRL data
+- Built-in webserver alleviates the need for additional servers
+- Ability to retrieve and serve an unlimited number of CRL sources
 - Support for full and delta CRLs
 
 ### Planned Features
 
-- OCSP implementation
-
-## Requirements
-- N/A
+- OCSP responder
 
 ## Installation
 
