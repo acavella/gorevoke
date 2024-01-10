@@ -19,7 +19,7 @@ jobs:
           {
             echo "RELEASE_TAG=${GITHUB_REF/refs\/tags\//}"
             echo "BUILD_TIME=$(date)"
-            echo "BUILD_TYPE=Source"
+            echo "BUILD_TYPE=Main"
           } >> "$GITHUB_ENV"
       - uses: actions/checkout@v3
       - uses: wangyoucao577/go-release-action@v1.40
