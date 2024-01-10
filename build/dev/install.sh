@@ -8,7 +8,7 @@
 set -e
 
 # Set build variables
-GOREVOKE_TAG="v1.0.0-rc10"
+GOREVOKE_TAG="v1.0.0-rc11"
 APP_NAME="gorevoke"
 APP_VERSION=${GOREVOKE_TAG#v}
 APP_BUILD="Dev"
