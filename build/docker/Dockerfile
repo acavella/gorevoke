@@ -1,4 +1,4 @@
-ARG BUILD_TAG=v1.0.0-rc11
+ARG BUILD_TAG=v1.0.0-rc12
 
 FROM docker.io/library/golang:1.20.12-alpine3.19 as builder
 ENV GOREVOKE_TAG=${BUILD_TAG}
