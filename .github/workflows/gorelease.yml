@@ -19,6 +19,7 @@ jobs:
           {
             echo "RELEASE_TAG=${GITHUB_REF/refs\/tags\//}"
             echo "BUILD_TIME=$(date)"
+            echo "BUILD_TYPE=Source"
           } >> "$GITHUB_ENV"
       - uses: actions/checkout@v3
       - uses: wangyoucao577/go-release-action@v1.40
@@ -28,5 +29,5 @@ jobs:
           goarch: ${{ matrix.goarch }}
           goversion: "1.20"
           binary_name: "gorevoke"
-          ldflags: -X "main.appVersion=${{ env.RELEASE_TAG }}" -X "main.appBuild=${{ env.BUILD_TIME }}"
+          ldflags: -X "main.appVersion=${{ env.RELEASE_TAG }}" -X "main.appBuild=${{ env.BUILD_TYPE }}" -X "main.appBuildDate=${{ env.BUILD_TIME }}"
           extra_files: LICENSE README.md conf/ crl/
