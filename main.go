@@ -37,6 +37,7 @@ func init() {
 
 	viper.SetConfigName("config")            // name of config file (without extension)
 	viper.SetConfigType("yaml")              // REQUIRED if the config file does not have the extension in the name
+	viper.AddConfigPath("./conf/")           // optionally look for config in the working directory
 	viper.AddConfigPath(workpath + "/conf/") // optionally look for config in the working directory
 
 	err2 := viper.ReadInConfig() // Find and read the config file
@@ -140,19 +141,6 @@ func copy(src, dst string) (int64, error) {
 	return nBytes, err
 }
 
-func checkcrl(filename string) {
-	csr, err := os.ReadFile(filename)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	cert, err := x509.ParseRevocationList(csr)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Info("CRL validated: ", cert.Issuer.CommonName)
-}
-
 func getcrl(caid []string, cauri []string, refresh int) {
 	for {
 		log.Info("Checking for new CRL(s)")
@@ -170,37 +158,45 @@ func getcrl(caid []string, cauri []string, refresh int) {
 			log.Info("Downloading file: ", cauri[i])
 			log.Info("Download location: ", tmpfile)
 
-			checkcrl(tmpfile)
-
-			if _, err := os.Stat(httpfile); err == nil {
-				// file exists
-				h1, err := getHash(tmpfile)
-				if err != nil {
-					log.Error("Error hashing: ", err)
-					return
-				}
-				h2, err2 := getHash(httpfile)
-				if err2 != nil {
-					log.Error("Error hashing: ", err2)
-					return
-				}
-				log.Debug(h1, h2, h1 == h2)
-				if h1 != h2 {
-					log.Info("File hashes do not match: ", h1, h2)
-					log.Info("Copying file to destination: ", httpfile)
-					copy(tmpfile, httpfile)
-				} else {
-					log.Info("No changes detected, proceeding.")
-				}
-			} else if errors.Is(err, os.ErrNotExist) {
-				// file does not exist
-				log.Info("Copying file to destination: ", httpfile)
-				copy(tmpfile, httpfile)
+			csr, err := os.ReadFile(tmpfile)
+			if err != nil {
+				log.Info(err)
 			} else {
-				// catch anything else
-				return
+				cert, err := x509.ParseRevocationList(csr)
+				if err != nil {
+					log.Info(err)
+				} else {
+					log.Info("CRL validated: ", cert.Issuer.CommonName)
+					if _, err := os.Stat(httpfile); err == nil {
+						// file exists
+						h1, err := getHash(tmpfile)
+						if err != nil {
+							log.Error("Error hashing: ", err)
+							return
+						}
+						h2, err2 := getHash(httpfile)
+						if err2 != nil {
+							log.Error("Error hashing: ", err2)
+							return
+						}
+						log.Debug(h1, h2, h1 == h2)
+						if h1 != h2 {
+							log.Info("File hashes do not match: ", h1, h2)
+							log.Info("Copying file to destination: ", httpfile)
+							copy(tmpfile, httpfile)
+						} else {
+							log.Info("No changes detected, proceeding.")
+						}
+					} else if errors.Is(err, os.ErrNotExist) {
+						// file does not exist
+						log.Info("Copying file to destination: ", httpfile)
+						copy(tmpfile, httpfile)
+					} else {
+						// catch anything else
+						return
+					}
+				}
 			}
-
 		}
 		time.Sleep(time.Duration(int(time.Second) * refresh)) // Defines time to sleep before repeating
 	}
