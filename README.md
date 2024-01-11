@@ -70,20 +70,15 @@ Contributions are essential to the success of open-source projects. In other wor
 What is a contribution? All the following are highly valuable:
 
 1. **Let us know of the best-practices you believe should be standardized**   
-   Netdata should out-of-the-box detect as many infrastructure issues as possible. By sharing your knowledge and experiences, you help us build a monitoring solution that has baked into it all the best-practices about infrastructure monitoring.
+   GoRevoke is designed to be compliant with applicable RFCs out-of-the box. By sharing your experiences and knowledge you help us build a solution that takes into account best-practices and user experience.
 
-2. **Let us know if Netdata is not perfect for your use case**   
-   We aim to support as many use cases as possible and your feedback can be invaluable. Open a GitHub issue, or start a GitHub discussion about it, to discuss how you want to use Netdata and what you need.
+2. **Let us know if things aren't working right**   
+   We aim to provide a perfect application and test it extensively, however, we can't imagine or replicate every deployment scenario possible. If you run into an issue that you think isn't normal, please let us know.
 
-   Although we can't implement everything imaginable, we try to prioritize development on use-cases that are common to our community, are in the same direction we want Netdata to evolve and are aligned with our roadmap.
+3. **Add or improve features**   
+   Have an idea to add or improve functionality, then let us know! We want to make GoRevoke the best total solution it can be.
 
-3. **Support other community members**   
-   Join our community on GitHub, Discord and Reddit. Generally, Netdata is relatively easy to set up and configure, but still people may need a little push in the right direction to use it effectively. Supporting other members is a great contribution by itself!
-
-4. **Add or improve integrations you need**   
-   Integrations tend to be easier and simpler to develop. If you would like to contribute your code to Netdata, we suggest that you start with the integrations you need, which Netdata does not currently support.
-
-General information about contributions:
+**General information about contributions:**
 
 Check our [Security Policy](https://github.com/acavella/gorevoke#).   
 Found a bug? Open a [GitHub issue](https://github.com/acavella/gorevoke/issues).   
@@ -95,10 +90,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Tony Cavella - tony@cavella.com
+- Tony Cavella - tony@cavella.com
+- Project Link: [https://github.com/acavella/gorevoke](https://github.com/acavella/gorevoke)
 
-Project Link: [https://github.com/acavella/gorevoke](https://github.com/acavella/gorevoke)
-
-<!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-
+- https://github.com/Deliveranc3 - Containerfile development and additions
