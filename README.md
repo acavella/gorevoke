@@ -47,9 +47,14 @@ s0lution/gorevoke:latest
 
 ### Native Deployment
 
-```Text
-Installation instructions here.
-```
+1. Download the [latest release](https://github.com/acavella/gorevoke/releases/latest/) archive for the appropriate platform 
+   - Linux (amd64): gorevoke-<version>-linux-amd64.tar.gz
+   - Windows (amd64): gorevoke-<version>-windows-amd64.zip
+2. Extract the archive to the appropriate application directory
+   - Linux: /usr/local/bin
+   - Windows: C:\Program Files\
+3. Edit the provided example configuration file `conf/config.yml.example` and save it as `conf/config.yml`
+4. Create a startup file to handle starting the application.
 
 ## Container Performance
 ![Docker Container Performance](assets/docker-stats.png)
