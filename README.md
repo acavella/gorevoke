@@ -65,13 +65,29 @@ I welcome welcome all responsible disclosures. Please do not open an ISSUE to re
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are essential to the success of open-source projects. In other words, we need your help to keep GoRevoke great!
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+What is a contribution? All the following are highly valuable:
+
+1. **Let us know of the best-practices you believe should be standardized**
+   Netdata should out-of-the-box detect as many infrastructure issues as possible. By sharing your knowledge and experiences, you help us build a monitoring solution that has baked into it all the best-practices about infrastructure monitoring.
+
+2. **Let us know if Netdata is not perfect for your use case**
+   We aim to support as many use cases as possible and your feedback can be invaluable. Open a GitHub issue, or start a GitHub discussion about it, to discuss how you want to use Netdata and what you need.
+
+   Although we can't implement everything imaginable, we try to prioritize development on use-cases that are common to our community, are in the same direction we want Netdata to evolve and are aligned with our roadmap.
+
+3. **Support other community members**
+   Join our community on GitHub, Discord and Reddit. Generally, Netdata is relatively easy to set up and configure, but still people may need a little push in the right direction to use it effectively. Supporting other members is a great contribution by itself!
+
+4. **Add or improve integrations you need**
+   Integrations tend to be easier and simpler to develop. If you would like to contribute your code to Netdata, we suggest that you start with the integrations you need, which Netdata does not currently support.
+
+General information about contributions:
+
+Check our Security Policy.
+Found a bug? Open a GitHub issue.
+Read our Contributing Guide, which contains all the information you need to contribute to Netdata, such as improving our documentation, engaging in the community, and developing new features. We've made it as frictionless as possible, but if you need help, just ping us on our community forums!
 
 ## License
 
