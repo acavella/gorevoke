@@ -9,7 +9,7 @@ set -e
 
 # Set build variables
 APP_NAME="gorevoke"
-APP_VERSION=${GOREVOKE_TAG#v}
+APP_VERSION=${1#v}
 APP_BUILD="Docker"
 APP_BUILDTIME=$(date +%Y%m%d-%M%H)
 BUILD_DIR="/usr/local/bin/gorevoke"
