@@ -15,5 +15,6 @@ jobs:
         with:
           image: ghcr.io/acavella/gorevoke
           registry: ghcr.io
+          dockerfile: build/docker/Dockerfile
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
