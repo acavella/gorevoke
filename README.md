@@ -2,6 +2,7 @@
 
 <!-- PROJECT SHIELDS -->
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/acavella/gorevoke/gorelease.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/acavella/gorevoke/dockerbuild.yml?logo=docker)
 ![GitHub License](https://img.shields.io/github/license/acavella/gorevoke)
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/acavella/gorevoke)
 
