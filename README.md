@@ -85,9 +85,9 @@ What is a contribution? All the following are highly valuable:
 
 General information about contributions:
 
-Check our Security Policy.
-Found a bug? Open a GitHub issue.
-Read our Contributing Guide, which contains all the information you need to contribute to Netdata, such as improving our documentation, engaging in the community, and developing new features. We've made it as frictionless as possible, but if you need help, just ping us on our community forums!
+Check our [Security Policy](https://github.com/acavella/gorevoke#).   
+Found a bug? Open a [GitHub issue](https://github.com/acavella/gorevoke/issues).   
+Read our [Contributing Code of Conduct](https://github.com/acavella/gorevoke?tab=coc-ov-file#), which contains all the information you need to contribute to GoRevoke!
 
 ## License
 
