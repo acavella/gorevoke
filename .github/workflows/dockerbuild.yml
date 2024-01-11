@@ -1,7 +1,8 @@
 name: Build and Push Docker Image
 
 on:
-  workflow_dispatch:
+  release:
+    types: [created]
 
 jobs:
   docker-build:
@@ -16,5 +17,6 @@ jobs:
           image: gorevoke
           registry: ghcr.io
           dockerfile: build/docker/Dockerfile
+          addLatest: true
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
