@@ -13,7 +13,7 @@ jobs:
         name: Check out code
       - uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          image: ghcr.io/acavella/gorevoke
+          image: acavella/gorevoke
           registry: ghcr.io
           dockerfile: build/docker/Dockerfile
           username: ${{ github.actor }}
