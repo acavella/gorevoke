@@ -94,6 +94,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - Project Link: [https://github.com/acavella/gorevoke](https://github.com/acavella/gorevoke)
 
 ## Acknowledgements
-- https://github.com/Deliveranc3 - Containerfile development and additions
-- [<img src="https://github.com/Deliveranc3.png" width="60px;"/><br /><sub><ahref="https://github.com/Deliveranc3">Deliveranc3</a></sub>](https://github.com/Deliveranc3/)
-
+- [@Deliveranc3](https://github.com/Deliveranc3) - Containerfile development and additions
