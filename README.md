@@ -23,11 +23,11 @@ GoRevoke is a standalone [Certificate Revocation List](https://en.wikipedia.org/
 
 - OCSP responder
 
-## Installation
+## Installation Instructions
 
-GoRevoke is designed to be deployed and run as a container. Additional instructions are provided if you'd like to deploy from source on baremetal.
+GoRevoke can be deployed as either a containerized image or installed natively on the host. The following instructions outline basic installation and configuration options.
 
-### Docker Instructions
+### Docker Deployment
 
 1. On the host machine create the following directories: `${PWD}/appdata/gorevoke/conf` and `${PWD}/appdata/gorevoke/crl`
 2. Copy and rename the configuration example `conf/config.yml.example` to `${PWD}/appdata/gorevoke/conf/config.yml`
@@ -45,7 +45,7 @@ s0lution/gorevoke:latest
 > [!IMPORTANT]
 > The Docker Run command above exposes the built-in webserver to the host directly on port 80 and is not recommended for production deploys. For a production configuration we recommend placing a webserver or proxy (such as Apache httpd or nginx) in front of GoRevoke to handle public web requests.
 
-### Baremetal Instructions
+### Native Deployment
 
 ```Text
 Installation instructions here.
