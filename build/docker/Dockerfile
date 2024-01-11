@@ -2,13 +2,12 @@ ARG BUILD_TAG=v1.0.0-rc12
 
 FROM docker.io/library/golang:1.20.12-alpine3.19 as builder
 ARG BUILD_TAG
-ENV GOREVOKE_TAG=$BUILD_TAG
 WORKDIR /go/src/
 
 RUN apk add --no-cache -U git \
     && git clone https://github.com/acavella/gorevoke \
     && cd gorevoke && git checkout ${BUILD_TAG} \
-    && /bin/sh /go/src/gorevoke/build/docker/bin/install.sh
+    && /bin/sh /go/src/gorevoke/build/docker/bin/install.sh ${BUILD_TAG}
 
 FROM registry.access.redhat.com/ubi9/ubi:9.3-1476 as runner
 ARG BUILD_TAG
