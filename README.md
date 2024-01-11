@@ -29,32 +29,21 @@ GoRevoke is designed to be deployed and run as a container. Additional instructi
 
 ### Docker Instructions
 
-1. 
-2. Create a application configuration directory and file; this example maps a volume to the `/appdata` directory.
-```Yaml
----
-default:
-  gateway: crls.pki.goog    # ip or fqdn to check used for connectivity checks
-  interval: 900             # update interval to check for new crls, in seconds
-  port: 4000                # port used by http server
-
-ca:
-  id: 
-    - x21
-    - x11
-  uri: 
-    - http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl
-    - http://crl.godaddy.com/gdig2s1-5609.crl
-```
-2. Use the following command to pull the latest image.
+1. On the host machine create the following directories: `${PWD}/appdata/gorevoke/conf` and `${PWD}/appdata/gorevoke/crl`
+2. Copy and rename the configuration example `conf/config.yml.example` to `${PWD}/appdata/gorevoke/conf/config.yml`
+3. Pull the latest image from Docker Hub using the following example Docker run command:
 ```Shell
 docker run -d \
 --name gorevoke \
 -p 80:4000 \
--v /appdata/gorevoke/config:/usr/local/bin/gorevoke/conf \
+-v ${PWD}/appdata/gorevoke/crl:/usr/local/bin/gorevoke/crl/static \
+-v ${PWD}/appdata/gorevoke/config:/usr/local/bin/gorevoke/conf \
 --restart=unless-stopped \
 s0lution/gorevoke:latest
 ```
+
+> [!IMPORTANT]
+> The Docker Run command above exposes the built-in webserver to the host directly on port 80 and is not recommended for production deploys. For a production configuration we recommend placing a webserver or proxy (such as Apache httpd or nginx) in front of GoRevoke to handle public web requests.
 
 ### Baremetal Instructions
 
