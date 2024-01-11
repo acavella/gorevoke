@@ -95,3 +95,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Acknowledgements
 - https://github.com/Deliveranc3 - Containerfile development and additions
+- [<img src="https://github.com/Deliveranc3.png" width="60px;"/><br /><sub><ahref="https://github.com/Deliveranc3">Deliveranc3</a></sub>](https://github.com/Deliveranc3/)
+
