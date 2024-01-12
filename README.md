@@ -40,7 +40,7 @@ docker run -d \
 -v ${PWD}/appdata/gorevoke/crl:/usr/local/bin/gorevoke/crl/static \
 -v ${PWD}/appdata/gorevoke/config:/usr/local/bin/gorevoke/conf \
 --restart=unless-stopped \
-s0lution/gorevoke:latest
+ghcr.io/acavella/gorevoke:latest
 ```
 
 > [!IMPORTANT]
