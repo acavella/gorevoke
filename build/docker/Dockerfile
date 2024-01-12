@@ -1,4 +1,4 @@
-ARG BUILD_TAG=v1.0.0-rc13
+ARG BUILD_TAG=v1.0.0
 
 FROM docker.io/library/golang:1.20.12-alpine3.19 as builder
 ARG BUILD_TAG
