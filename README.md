@@ -55,7 +55,26 @@ ghcr.io/acavella/gorevoke:latest
    - Linux: /usr/local/bin
    - Windows: C:\Program Files\
 3. Edit the provided example configuration file `conf/config.yml.example` and save it as `conf/config.yml`
-4. Create a startup file to handle starting the application.
+4. Create a systemd service file `/etc/systemd/service/gorevoke.service` with the following contents:
+```
+[Unit]
+Description=GoRevoke CDP Server
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/gorevoke/gorevoke
+
+[Install]
+WantedBy=multi-user.target
+```
+5. Set the permissions `sudo chmod 664 /etc/systemd/service/gorevoke.service`
+6. Reload the systemd configuration `sudo systemctl daemon-reload`
+7. Enable and start the service:
+```shell
+sudo systemctl enable gorevoke.service
+sudo systemctl start gorevoke.service
+```
 
 ## Container Performance
 ![Docker Container Performance](assets/docker-stats.png)
