@@ -65,7 +65,7 @@ func main() {
 	log.Info("CRLs in list: ", len(caid))
 	log.Info("Refresh interval: ", time.Duration(int(time.Second)*int(refresh)))
 
-	getcrl(caid, cauri, refresh)
+	//getcrl(caid, cauri, refresh)
 
 	for {
 		for i := 0; i < len(caid); i++ {
@@ -93,12 +93,10 @@ func main() {
 				h1, err := getHash(tmpfile)
 				if err != nil {
 					log.Error("Error hashing: ", err)
-					return
 				}
 				h2, err2 := getHash(httpfile)
 				if err2 != nil {
 					log.Error("Error hashing: ", err2)
-					return
 				}
 				log.Debug(h1, h2, h1 == h2)
 				if h1 != h2 {
@@ -195,6 +193,7 @@ func copy(src, dst string) (int64, error) {
 	return nBytes, err
 }
 
+/*
 func getcrl(caid []string, cauri []string, refresh int) {
 	for {
 		log.Info("Checking for new CRL(s)")
@@ -255,6 +254,7 @@ func getcrl(caid []string, cauri []string, refresh int) {
 		time.Sleep(time.Duration(int(time.Second) * refresh)) // Defines time to sleep before repeating
 	}
 }
+*/
 
 func webserver(webport string) {
 	// Disabled for testing
