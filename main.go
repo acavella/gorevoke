@@ -65,7 +65,60 @@ func main() {
 	log.Info("CRLs in list: ", len(caid))
 	log.Info("Refresh interval: ", time.Duration(int(time.Second)*int(refresh)))
 
-	getcrl(caid, cauri, refresh)
+	//getcrl(caid, cauri, refresh)
+
+	for {
+		for i := 0; i < len(caid); i++ {
+
+			var tmpfile string = workpath + "/crl/tmp/" + caid[i] + ".crl"
+			var httpfile string = workpath + "/crl/static/" + caid[i] + ".crl"
+
+			DownloadFile(tmpfile, cauri[i]) // Download CRL from remote
+
+			crlfile, err := os.ReadFile(tmpfile)
+			if err != nil {
+				log.Error("Problem opening downloaded file: ", err)
+			} else {
+				crl, err := x509.ParseRevocationList(crlfile)
+				if err != nil {
+					log.Errorln("Skipping CRL: ", err)
+					goto SKIP
+				} else {
+					log.Infof("CRL %s is valid, issued by %s\n", crl.Issuer.SerialNumber, crl.Issuer.CommonName)
+				}
+			}
+
+			if _, err := os.Stat(httpfile); err == nil {
+				// file exists
+				log.Info("CRL already exists")
+				h1, err := getHash(tmpfile)
+				if err != nil {
+					log.Error("Error hashing: ", err)
+				}
+				h2, err2 := getHash(httpfile)
+				if err2 != nil {
+					log.Error("Error hashing: ", err2)
+				}
+				log.Debug(h1, h2, h1 == h2)
+				if h1 != h2 {
+					log.Info("File hashes do not match: ", h1, h2)
+					log.Info("Copying file to destination: ", httpfile)
+					copy(tmpfile, httpfile)
+				} else {
+					log.Info("No changes detected, proceeding.")
+				}
+			} else if errors.Is(err, os.ErrNotExist) {
+				// file does not exist
+				log.Info("CRL is new, copying to: ", httpfile)
+				copy(tmpfile, httpfile)
+			} else {
+				// catch anything else
+				return
+			}
+		SKIP:
+		}
+		time.Sleep(time.Duration(int(time.Second) * refresh)) // Defines time to sleep before repeating
+	}
 
 }
 
@@ -139,67 +192,6 @@ func copy(src, dst string) (int64, error) {
 	defer destination.Close()
 	nBytes, err := io.Copy(destination, source)
 	return nBytes, err
-}
-
-func getcrl(caid []string, cauri []string, refresh int) {
-	for {
-		log.Info("Checking for new CRL(s)")
-		// Simple loop through arrays, downloads each crl from source
-		for i := 0; i < len(caid); i++ {
-
-			var tmpfile string = workpath + "/crl/tmp/" + caid[i] + ".crl"
-			var httpfile string = workpath + "/crl/static/" + caid[i] + ".crl"
-
-			err := DownloadFile(tmpfile, cauri[i])
-			if err != nil {
-				fmt.Println("Error downloading file: ", err)
-				return
-			}
-			log.Info("Downloading file: ", cauri[i])
-			log.Info("Download location: ", tmpfile)
-
-			csr, err := os.ReadFile(tmpfile)
-			if err != nil {
-				log.Info(err)
-			} else {
-				cert, err := x509.ParseRevocationList(csr)
-				if err != nil {
-					log.Info(err)
-				} else {
-					log.Info("CRL validated: ", cert.Issuer.CommonName)
-					if _, err := os.Stat(httpfile); err == nil {
-						// file exists
-						h1, err := getHash(tmpfile)
-						if err != nil {
-							log.Error("Error hashing: ", err)
-							return
-						}
-						h2, err2 := getHash(httpfile)
-						if err2 != nil {
-							log.Error("Error hashing: ", err2)
-							return
-						}
-						log.Debug(h1, h2, h1 == h2)
-						if h1 != h2 {
-							log.Info("File hashes do not match: ", h1, h2)
-							log.Info("Copying file to destination: ", httpfile)
-							copy(tmpfile, httpfile)
-						} else {
-							log.Info("No changes detected, proceeding.")
-						}
-					} else if errors.Is(err, os.ErrNotExist) {
-						// file does not exist
-						log.Info("Copying file to destination: ", httpfile)
-						copy(tmpfile, httpfile)
-					} else {
-						// catch anything else
-						return
-					}
-				}
-			}
-		}
-		time.Sleep(time.Duration(int(time.Second) * refresh)) // Defines time to sleep before repeating
-	}
 }
 
 func webserver(webport string) {
