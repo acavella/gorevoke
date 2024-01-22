@@ -84,7 +84,7 @@ func main() {
 					log.Errorln("Skipping CRL: ", err)
 					goto SKIP
 				} else {
-					log.Infof("CRL %s is valid, issued by %s", crl.Issuer.SerialNumber, crl.Issuer.CommonName)
+					log.Infof("CRL %s is valid, issued by %s", caid[i], crl.Issuer.CommonName)
 				}
 			}
 
