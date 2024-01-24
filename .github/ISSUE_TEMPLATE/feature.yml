@@ -1,0 +1,29 @@
+name: Feature Request
+description: Request a feature or enhancement
+title: "[Feature] "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening requesting a new feature or enhancement, please search in existing issues. 
+
+        ---
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature description
+      description: What would you like to change or improve?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Suggested implementation
+      description: How would you suggest this feature be implemented?
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant code
+      description: If applicable, please provide any psuedocode or example of feature.
+      render: Shell

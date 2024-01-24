@@ -4,9 +4,6 @@ import (
 	"crypto/x509"
 	"errors"
 	"fmt"
-	"hash/crc32"
-	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 	"time"
@@ -120,90 +117,6 @@ func main() {
 		time.Sleep(time.Duration(int(time.Second) * refresh)) // Defines time to sleep before repeating
 	}
 
-}
-
-// DownloadFile will download from a given url to a file. It will
-// write as it downloads (useful for large files).
-func DownloadFile(filepath string, url string) error {
-
-	// Get the data
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-
-	// Create the file
-	out, err := os.Create(filepath)
-	if err != nil {
-		return err
-	}
-	defer out.Close()
-
-	// Write the body to file
-	_, err = io.Copy(out, resp.Body)
-	return err
-
-}
-
-func getHash(filename string) (uint32, error) {
-	// open the file
-	f, err := os.Open(filename)
-	if err != nil {
-		return 0, err
-	}
-	// remember to always close opened files
-	defer f.Close()
-
-	// create a hasher
-
-	h := crc32.NewIEEE()
-	// copy the file into the hasher
-	// - copy takes (dst, src) and returns (bytesWritten, error)
-	_, err = io.Copy(h, f)
-	// we don't care about how many bytes were written, but we do want to
-	// handle the error
-	if err != nil {
-		return 0, err
-	}
-	return h.Sum32(), nil
-}
-
-func copy(src, dst string) (int64, error) {
-	sourceFileStat, err := os.Stat(src)
-	if err != nil {
-		return 0, err
-	}
-
-	if !sourceFileStat.Mode().IsRegular() {
-		return 0, fmt.Errorf("%s is not a regular file", src)
-	}
-
-	source, err := os.Open(src)
-	if err != nil {
-		return 0, err
-	}
-	defer source.Close()
-
-	destination, err := os.Create(dst)
-	if err != nil {
-		return 0, err
-	}
-	defer destination.Close()
-	nBytes, err := io.Copy(destination, source)
-	return nBytes, err
-}
-
-func webserver(webport string) {
-	// Disabled for testing
-	// Simple http fileserver, serves all files in ./crl/static/
-	// via localhost:4000/static/filename
-	log.Info("Webserver is starting on port ", webport)
-	mux := http.NewServeMux()
-	fileServer := http.FileServer(http.Dir(workpath + "/crl/static/"))
-	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
-	errhttp := http.ListenAndServe(":"+webport, mux)
-	log.Error("Http error: ", errhttp)
 }
 
 func printver() {
