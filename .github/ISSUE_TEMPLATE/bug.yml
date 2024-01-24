@@ -1,0 +1,58 @@
+name: Bug
+description: File a bug report
+title: "[Issue] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening a bug report, please search for the behaviour in the existing issues. 
+        
+        Thank you for taking the time to file a bug report. To address this bug as fast as possible, we need some information.
+
+        ---
+  - type: dropdown
+    id: build
+    attributes:
+      label: Build Type
+      description: What build type are you using?
+      options:
+        - Docker/Podman (Container)
+        - Native (Baremetal)
+      default: 0
+    validations:
+      required: true  
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: "Which operating system do you use? Please provide the version as well."
+      placeholder: "Fedora Workstation 38"
+    validations:
+      required: true  
+  - type: input
+    id: version
+    attributes:
+      label: GoRevoke Version
+      description: "Please provide script debug version (./gorevoke --version)."
+      placeholder: "v8.6.1"
+    validations:
+      required: true
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug description
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Which steps do we need to take to reproduce this error?
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: If applicable, provide relevant log output. No need for backticks here.
+      render: Shell
