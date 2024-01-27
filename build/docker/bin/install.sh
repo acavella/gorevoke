@@ -27,4 +27,4 @@ mkdir ${BUILD_DIR}/crl/static
 cp ./conf/config.yml ${BUILD_DIR}/conf/ 
 
 # Build Go application
-go build -o "${BUILD_DIR}/${APP_NAME}" -ldflags="-X 'main.appVersion=${APP_VERSION}' -X 'main.appBuild=${APP_BUILD}' -X 'main.appBuildDate=${APP_BUILDTIME}'" main.go
+go build -o "${BUILD_DIR}/${APP_NAME}" -ldflags="-X 'main.appVersion=${APP_VERSION}' -X 'main.appBuild=${APP_BUILD}' -X 'main.appBuildDate=${APP_BUILDTIME}'" *.go
