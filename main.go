@@ -75,6 +75,8 @@ func main() {
 			crlfile, err := os.ReadFile(tmpfile)
 			if err != nil {
 				log.Error("Problem opening downloaded file: ", err)
+				log.Info("Moving to next CRL entry.")
+				goto SKIP
 			} else {
 				crl, err := x509.ParseRevocationList(crlfile)
 				if err != nil {
