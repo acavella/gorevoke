@@ -43,6 +43,10 @@ func init() {
 	viper.SetDefault("default.webserver", false)
 	viper.SetDefault("default.port", 4000)
 
+	// Enable environment variable configuration
+	viper.SetEnvPrefix("GOREVOKE")
+	viper.AutomaticEnv()
+
 	err2 := viper.ReadInConfig() // Find and read the config file
 	if err2 != nil {             // Handle errors reading the config file
 		panic(fmt.Errorf("fatal error config file: %w", err))
