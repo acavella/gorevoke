@@ -32,10 +32,11 @@ func init() {
 
 	workpath = directory // set app working directory
 
-	viper.SetConfigName("config")            // name of config file (without extension)
+	viper.SetConfigName("gorevoke")            // name of config file (without extension)
 	viper.SetConfigType("yaml")              // REQUIRED if the config file does not have the extension in the name
-	viper.AddConfigPath("./conf/")           // optionally look for config in the working directory
 	viper.AddConfigPath(workpath + "/conf/") // optionally look for config in the working directory
+	viper.AddConfigPath("$HOME/.gorevoke/")
+	viper.AddConfigPath("/etc/")
 
 	err2 := viper.ReadInConfig() // Find and read the config file
 	if err2 != nil {             // Handle errors reading the config file
