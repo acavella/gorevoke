@@ -81,12 +81,12 @@ func main() {
 			if err != nil {
 				log.Error("Problem opening downloaded file: ", err)
 				log.Info("Moving to next CRL entry.")
-				goto SKIP
+				continue
 			} else {
 				crl, err := x509.ParseRevocationList(crlfile)
 				if err != nil {
 					log.Errorln("Skipping CRL: ", err)
-					goto SKIP
+					continue
 				} else {
 					log.Infof("CRL %s is valid, issued by %s", caId, crl.Issuer.CommonName)
 				}
@@ -119,7 +119,6 @@ func main() {
 				// catch anything else
 				return
 			}
-		SKIP:
 		}
 		time.Sleep(time.Duration(int(time.Second) * refresh)) // Defines time to sleep before repeating
 	}
