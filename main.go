@@ -57,10 +57,8 @@ func init() {
 }
 
 func main() {
-
-	// Sets CA ID and URI to string arrays
-	caid := viper.GetStringSlice("ca.id")
-	cauri := viper.GetStringSlice("ca.uri")
+	// Retrieve config values
+	crls := viper.GetStringMapString("crls")
 	refresh := viper.GetInt("default.interval")
 	webport := viper.GetString("default.port")
 	server := viper.GetBool("default.webserver")
@@ -69,18 +67,15 @@ func main() {
 		go webserver(webport)
 	}
 
-	log.Info("CRLs in list: ", len(caid))
+	log.Info("CRLs in list: ", len(crls))
 	log.Info("Refresh interval: ", time.Duration(int(time.Second)*int(refresh)))
 
-	//getcrl(caid, cauri, refresh)
-
 	for {
-		for i := 0; i < len(caid); i++ {
+		for caId, caUrl := range crls {
+			var tmpfile string = workpath + "/crl/tmp/" + caId + ".crl"
+			var httpfile string = workpath + "/crl/static/" + caId + ".crl"
 
-			var tmpfile string = workpath + "/crl/tmp/" + caid[i] + ".crl"
-			var httpfile string = workpath + "/crl/static/" + caid[i] + ".crl"
-
-			DownloadFile(tmpfile, cauri[i]) // Download CRL from remote
+			DownloadFile(tmpfile, caUrl) // Download CRL from remote
 
 			crlfile, err := os.ReadFile(tmpfile)
 			if err != nil {
@@ -93,7 +88,7 @@ func main() {
 					log.Errorln("Skipping CRL: ", err)
 					goto SKIP
 				} else {
-					log.Infof("CRL %s is valid, issued by %s", caid[i], crl.Issuer.CommonName)
+					log.Infof("CRL %s is valid, issued by %s", caId, crl.Issuer.CommonName)
 				}
 			}
 
