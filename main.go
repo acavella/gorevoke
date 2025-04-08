@@ -38,6 +38,11 @@ func init() {
 	viper.AddConfigPath("$HOME/.gorevoke/")
 	viper.AddConfigPath("/etc/")
 
+	// Set defaults
+	viper.SetDefault("default.interval", 5)
+	viper.SetDefault("default.webserver", false)
+	viper.SetDefault("default.port", 4000)
+
 	err2 := viper.ReadInConfig() // Find and read the config file
 	if err2 != nil {             // Handle errors reading the config file
 		panic(fmt.Errorf("fatal error config file: %w", err))
