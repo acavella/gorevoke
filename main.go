@@ -46,6 +46,7 @@ func init() {
 	viper.SetDefault("default.interval", 5)
 	viper.SetDefault("default.webserver", false)
 	viper.SetDefault("default.port", 4000)
+	viper.SetDefault("default.crldir", workpath + "/crl")
 
 	// Enable environment variable configuration
 	viper.AutomaticEnv()
@@ -62,6 +63,16 @@ func init() {
 			panic(fmt.Errorf("fatal error reading config file: %w", configErr))
 		}
 	}
+
+	// Initialize temp dir if not set
+	if !viper.IsSet("default.tmpdir") {
+		tmpdir, err := os.MkdirTemp("", "gorevoke-*")
+		if err != nil {
+			panic(fmt.Errorf("error creating temporary directory: %w", err))
+		}
+		viper.Set("default.tmpdir", tmpdir)
+		log.Info("Created temp directory for CRLs: ", tmpdir)
+	}
 }
 
 func main() {
@@ -70,6 +81,8 @@ func main() {
 	refresh := viper.GetInt("default.interval")
 	webport := viper.GetString("default.port")
 	server := viper.GetBool("default.webserver")
+	tmpdir := viper.GetString("default.tmpdir")
+	crldir := viper.GetString("default.crldir")
 
 	if server {
 		go webserver(webport)
@@ -80,8 +93,8 @@ func main() {
 
 	for {
 		for caId, caUrl := range crls {
-			var tmpfile string = workpath + "/crl/tmp/" + caId + ".crl"
-			var httpfile string = workpath + "/crl/static/" + caId + ".crl"
+			var tmpfile string = tmpdir + "/" + caId + ".crl"
+			var httpfile string = crldir + "/" + caId + ".crl"
 
 			DownloadFile(tmpfile, caUrl) // Download CRL from remote
 
@@ -122,7 +135,11 @@ func main() {
 			} else if errors.Is(err, os.ErrNotExist) {
 				// file does not exist
 				log.Info("CRL is new, copying to: ", httpfile)
-				copy(tmpfile, httpfile)
+				bytes, err := copy(tmpfile, httpfile)
+				if err != nil {
+					log.Errorf("Error copying downloaded CRL to destination %s: %s", httpfile, err)
+				}
+				log.Debugf("Copied %d bytes from %s to %s", bytes, tmpfile, httpfile)
 			} else {
 				// catch anything else
 				return
