@@ -5,8 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/spf13/viper"
@@ -76,6 +78,15 @@ func init() {
 }
 
 func main() {
+	// Catch SIGTERM in order to cleanup temp files
+    c := make(chan os.Signal)
+    signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+    go func() {
+        <-c
+        cleanup()
+        os.Exit(1)
+    }()
+
 	// Retrieve config values
 	crls := viper.GetStringMapString("crls")
 	refresh := viper.GetInt("default.interval")
@@ -147,7 +158,15 @@ func main() {
 		}
 		time.Sleep(time.Duration(int(time.Second) * refresh)) // Defines time to sleep before repeating
 	}
+}
 
+func cleanup() {
+	tmpdir := viper.GetString("default.tmpdir")
+	log.Infof("Shutdown signal received, removing temp directory %s", tmpdir)
+	err := os.RemoveAll(tmpdir)
+	if err != nil {
+		log.Errorf("Could not remove %s: %s", tmpdir, err)
+	}
 }
 
 func printver() {
