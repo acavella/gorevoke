@@ -26,6 +26,8 @@ func init() {
 		FullTimestamp:    true,
 	})
 
+	printver()
+
 	directory, err := filepath.Abs(filepath.Dir(os.Args[0])) //get the current working directory
 	if err != nil {
 		log.Fatal(err) //print the error if obtained
@@ -58,8 +60,6 @@ func init() {
 			panic(fmt.Errorf("fatal error reading config file: %w", configErr))
 		}
 	}
-
-	printver()
 }
 
 func main() {
