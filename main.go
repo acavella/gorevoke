@@ -49,13 +49,17 @@ func init() {
 	viper.SetEnvPrefix("gorevoke")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
-	err2 := viper.ReadInConfig() // Find and read the config file
-	if err2 != nil {             // Handle errors reading the config file
-		panic(fmt.Errorf("fatal error config file: %w", err))
+	if configErr := viper.ReadInConfig(); configErr != nil {
+		if _, ok := configErr.(viper.ConfigFileNotFoundError); ok {
+			// Config file not found
+			log.Warn("no config file found, using defaults/environment")
+		} else {
+			// Config file was found but another error was produced
+			panic(fmt.Errorf("fatal error reading config file: %w", configErr))
+		}
 	}
 
 	printver()
-
 }
 
 func main() {
