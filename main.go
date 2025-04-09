@@ -35,9 +35,10 @@ func init() {
 
 	workpath = directory // set app working directory
 
-	viper.SetConfigName("gorevoke")            // name of config file (without extension)
-	viper.SetConfigType("yaml")              // REQUIRED if the config file does not have the extension in the name
-	viper.AddConfigPath(workpath + "/conf/") // optionally look for config in the working directory
+	// Set config file paths
+	viper.SetConfigName("gorevoke")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
 	viper.AddConfigPath("$HOME/.gorevoke/")
 	viper.AddConfigPath("/etc/")
 
@@ -51,6 +52,7 @@ func init() {
 	viper.SetEnvPrefix("gorevoke")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
+	// Load config file
 	if configErr := viper.ReadInConfig(); configErr != nil {
 		if _, ok := configErr.(viper.ConfigFileNotFoundError); ok {
 			// Config file not found
