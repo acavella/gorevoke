@@ -22,3 +22,6 @@
 
 # Go workspace file
 go.work
+
+# IDE files
+.vscode/
