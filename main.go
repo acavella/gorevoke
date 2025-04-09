@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/spf13/viper"
@@ -44,8 +45,9 @@ func init() {
 	viper.SetDefault("default.port", 4000)
 
 	// Enable environment variable configuration
-	viper.SetEnvPrefix("GOREVOKE")
 	viper.AutomaticEnv()
+	viper.SetEnvPrefix("gorevoke")
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	err2 := viper.ReadInConfig() // Find and read the config file
 	if err2 != nil {             // Handle errors reading the config file
