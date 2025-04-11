@@ -1,4 +1,4 @@
-ARG BUILD_TAG=main
+ARG BUILD_TAG=master
 
 FROM docker.io/library/golang:1.20.12-alpine3.19 as builder
 ARG BUILD_TAG
