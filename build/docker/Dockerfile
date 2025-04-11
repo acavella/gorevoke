@@ -19,9 +19,9 @@ LABEL org.opencontainers.image.url="https://github.com/acavella/gorevoke"
 LABEL org.opencontainers.image.description="GoRevoke is a standalone Certificate Revocation List Distrution Point written in Go, designed to be lightweight and fully self-contained."
 LABEL org.opencontainers.image.licenses="MIT"
 
-COPY --from=builder /usr/local/bin/gorevoke/ /usr/local/bin/gorevoke/
+COPY --from=builder /usr/local/bin/gorevoke/gorevoke /usr/local/bin/gorevoke
 
 RUN dnf update -y
 
 EXPOSE 4000
-CMD [ "/usr/local/bin/gorevoke/gorevoke" ]
+CMD [ "/usr/local/bin/gorevoke" ]
