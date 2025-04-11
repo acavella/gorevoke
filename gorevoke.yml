@@ -1,9 +1,12 @@
 ---
 default:
-  interval: 5             # update interval to check for new crls, in seconds
-  webserver: false          # enables built-in webserver, when true
-  port: 4000                # port used by built-in webserver
+  crldir: /var/www/crl # path to save downloaded CRLs. should already exist
+  interval: 900        # update interval to check for new crls, in seconds
+  webserver: false     # enables built-in webserver, when true
+  port: 4000           # port used by built-in webserver, if enabled
 
+# Which CRLs to download and serve. The keys of this dict will be the filenames
+# (e.g. x21.crl) and the values are the URLs to retrieve the source CRL from
 crls:
   x21: http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl
   x11: http://crl.godaddy.com/gdig2s1-5609.crl

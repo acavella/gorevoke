@@ -30,15 +30,13 @@ GoRevoke can be deployed as either a containerized image or installed natively o
 
 ### Docker Deployment
 
-1. On the host machine create the following directories: `${PWD}/appdata/gorevoke/conf` and `${PWD}/appdata/gorevoke/crl`
-2. Copy and rename the configuration example `conf/config.yml.example` to `${PWD}/appdata/gorevoke/conf/config.yml`
-3. Pull the latest image from Docker Hub using the following example Docker run command:
+1. Copy and rename the configuration example `gorevoke.yml` to a path on your host system, e.g. `$HOME/gorevoke.yml`
+2. Pull the latest image from Docker Hub using the following example Docker run command:
 ```Shell
 docker run -d \
 --name gorevoke \
 -p 80:4000 \
--v ${PWD}/appdata/gorevoke/crl:/usr/local/bin/gorevoke/crl/static \
--v ${PWD}/appdata/gorevoke/config:/usr/local/bin/gorevoke/conf \
+-v /path/to/gorevoke.yml:/etc/gorevoke.yml \
 --restart=unless-stopped \
 ghcr.io/acavella/gorevoke:latest
 ```
@@ -52,29 +50,60 @@ ghcr.io/acavella/gorevoke:latest
    - Linux (amd64): gorevoke-<version>-linux-amd64.tar.gz
    - Windows (amd64): gorevoke-<version>-windows-amd64.zip
 2. Extract the archive to the appropriate application directory
-   - Linux: /usr/local/bin
-   - Windows: C:\Program Files\
-3. Edit the provided example configuration file `conf/config.yml.example` and save it as `conf/config.yml`
-4. Create a systemd service file `/etc/systemd/service/gorevoke.service` with the following contents:
-```
+   - Linux: `/usr/local/bin`
+   - Windows: `C:\Program Files\`
+3. (optional) Edit the provided example configuration file `gorevoke.yml` and save it as `/etc/gorevoke.yml`
+4. (optional) Create a system user for GoRevoke: `useradd --system --no-create-home --shell=/sbin/nologin gorevoke`
+5. Create a systemd service file `/etc/systemd/service/gorevoke.service`. Example unit files:
+```ini
+### Using a static-file configuration
 [Unit]
 Description=GoRevoke CDP Server
 After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/gorevoke/gorevoke
+ExecStart=/usr/local/bin/gorevoke
+User=gorevoke
+Restart=always
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=multi-user.target default.target
 ```
-5. Set the permissions `sudo chmod 664 /etc/systemd/service/gorevoke.service`
-6. Reload the systemd configuration `sudo systemctl daemon-reload`
-7. Enable and start the service:
+```ini
+### Using configuration via environment vars
+[Unit]
+Description=GoRevoke CDP Server
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/gorevoke
+User=gorevoke
+Environment=GOREVOKE_DEFAULT_INTERVAL=900
+Environment=GOREVOKE_DEFAULT_WEBSERVER=true
+Environment=GOREVOKE_DEFAULT_CRLDIR=/var/www/public_html
+Environment=GOREVOKE_CRLS='{"x21":"http://crls.pki.goog/gts1c3/zdATt0Ex_Fk.crl", "x11":"http://crl.godaddy.com/gdig2s1-5609.crl"}'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target
+```
+6. Set the permissions `sudo chmod 664 /etc/systemd/service/gorevoke.service`
+7. Reload the systemd configuration `sudo systemctl daemon-reload`
+8. Enable and start the service:
 ```shell
-sudo systemctl enable gorevoke.service
-sudo systemctl start gorevoke.service
+sudo systemctl enable --now gorevoke.service
 ```
+
+## Configuration
+A list of all available configuration options is available at [gorevoke.yml](gorevoke.yml), with comments provided inline. Configuration can be set via a static file, in which case the following paths are checked:
+
+- `$PWD/gorevoke.yml`
+- `$HOME/.gorevoke/gorevoke.yml`
+- `/etc/gorevoke.yml`
+
+Optionally, all configuration values can be specified via environment variables, upper-cased and prefixed with `GOREVOKE`. For example, the configuration item `default.interval` can be set via the `GOREVOKE_DEFAULT_INTERVAL` variable. If specifying the list of CRLs as an environment var (`GOREVOKE_CRLS`), the CRLs must be provided as a json dict. See the systemd unit example, above.
 
 ## Container Performance
 ![Docker Container Performance](assets/docker-stats.png)
@@ -114,4 +143,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - Project Link: [https://github.com/acavella/gorevoke](https://github.com/acavella/gorevoke)
 
 ## Acknowledgements
-- [@Deliveranc3](https://github.com/Deliveranc3) - Containerfile development and additions
+- [@Deliveranc3](https://github.com/Deliveranc3) - Containerfile development and additions to config logic
