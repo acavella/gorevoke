@@ -9,8 +9,7 @@ RUN apk add --no-cache -U git \
     && cd gorevoke && git checkout ${BUILD_TAG} \
     && /bin/sh /go/src/gorevoke/build/docker/bin/install.sh ${BUILD_TAG}
 
-FROM registry.access.redhat.com/ubi9/ubi:9.3-1476 as runner
-ARG BUILD_TAG
+FROM registry.access.redhat.com/ubi9-minimal:9.5 as runner
 
 LABEL org.opencontainers.image.title="GoRevoke"
 LABEL org.opencontainers.image.version=${BUILD_TAG}
@@ -20,8 +19,6 @@ LABEL org.opencontainers.image.description="GoRevoke is a standalone Certificate
 LABEL org.opencontainers.image.licenses="MIT"
 
 COPY --from=builder /usr/local/bin/gorevoke/gorevoke /usr/local/bin/gorevoke
-
-RUN dnf update -y
 
 EXPOSE 4000
 CMD [ "/usr/local/bin/gorevoke" ]
