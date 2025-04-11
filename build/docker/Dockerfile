@@ -1,6 +1,6 @@
 ARG BUILD_TAG=master
 
-FROM docker.io/library/golang:1.20.12-alpine3.19 as builder
+FROM docker.io/library/golang:alpine as builder
 ARG BUILD_TAG
 WORKDIR /go/src/
 
