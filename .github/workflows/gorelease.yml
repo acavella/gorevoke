@@ -30,4 +30,4 @@ jobs:
           goversion: "1.20"
           binary_name: "gorevoke"
           ldflags: -X "main.appVersion=${{ env.RELEASE_TAG }}" -X "main.appBuild=${{ env.BUILD_TYPE }}" -X "main.appBuildDate=${{ env.BUILD_TIME }}"
-          extra_files: LICENSE README.md conf/ crl/
+          extra_files: LICENSE README.md
