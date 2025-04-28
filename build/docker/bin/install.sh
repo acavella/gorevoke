@@ -18,13 +18,13 @@ GOARCH=amd64
 
 # Create application base directories
 mkdir ${BUILD_DIR}
-mkdir ${BUILD_DIR}/conf
-mkdir ${BUILD_DIR}/crl
-mkdir ${BUILD_DIR}/crl/tmp
-mkdir ${BUILD_DIR}/crl/static
+#mkdir ${BUILD_DIR}/conf
+#mkdir ${BUILD_DIR}/crl
+#mkdir ${BUILD_DIR}/crl/tmp
+#mkdir ${BUILD_DIR}/crl/static
 
 # Copy default files
-cp ./conf/config.yml ${BUILD_DIR}/conf/ 
+#cp ./conf/config.yml ${BUILD_DIR}/conf/ 
 
 # Build Go application
 go build -o "${BUILD_DIR}/${APP_NAME}" -ldflags="-X 'main.appVersion=${APP_VERSION}' -X 'main.appBuild=${APP_BUILD}' -X 'main.appBuildDate=${APP_BUILDTIME}'" *.go
